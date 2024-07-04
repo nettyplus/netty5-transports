@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.github.sullis</groupId>
-  <artifactId>foobar-playground</artifactId>
+  <groupId>io.github.nettyplus</groupId>
+  <artifactId>netty5-transports</artifactId>
   <packaging>jar</packaging>
-  <name>foobar-playground</name>
+  <name>netty5-transports</name>
   <version>0.0.1-SNAPSHOT</version>
-  <description>foobar-playground</description>
+  <description>netty5-transports</description>
   <licenses>
     <license>
       <name>Apache License 2.0</name>
@@ -16,31 +16,27 @@
   </licenses>
 
   <properties>
+    <junit.version>5.10.3</junit.version>
     <logback.version>1.5.6</logback.version>
     <slf4j.version>2.0.13</slf4j.version>
+    <netty.version>5.0.0.Alpha6-SNAPSHOT</netty.version>
     <skip.tests>false</skip.tests>
   </properties>
 
-    <dependencyManagement>
+  <repositories>
+   <repository>
+     <id>netty-snapshots</id>
+     <name>netty-snapshots</name>
+     <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+   </repository>
+  </repositories>
+
+  <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>testcontainers-bom</artifactId>
-        <version>1.19.8</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.junit</groupId>
-        <artifactId>junit-bom</artifactId>
-        <version>5.10.3</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>bom</artifactId>
-        <version>2.26.15</version>
+        <groupId>io.netty</groupId>
+        <artifactId>netty5-bom</artifactId>
+        <version>${netty.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -48,32 +44,64 @@
   </dependencyManagement>
 
   <dependencies>
+      <dependency>
+          <groupId>io.netty</groupId>
+          <artifactId>netty5-common</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>io.netty</groupId>
+          <artifactId>netty5-buffer</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>io.netty</groupId>
+          <artifactId>netty5-transport</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>io.netty</groupId>
+          <artifactId>netty5-transport-classes-epoll</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>io.netty</groupId>
+          <artifactId>netty5-transport-native-epoll</artifactId>
+          <classifier>linux-x86_64</classifier>
+      </dependency>
     <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>3.26.0</version>
-      <scope>test</scope>
+      <groupId>io.netty</groupId>
+      <artifactId>netty5-transport-native-epoll</artifactId>
+      <classifier>linux-aarch_64</classifier>
     </dependency>
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.14.0</version>
+      <groupId>io.netty</groupId>
+      <artifactId>netty5-transport-classes-kqueue</artifactId>
+    </dependency>
+    <!--  todo
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty5-transport-native-kqueue</artifactId>
+      <classifier>osx-x86_64</classifier>
     </dependency>
     <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.16.1</version>
+      <groupId>io.netty</groupId>
+      <artifactId>netty5-transport-native-kqueue</artifactId>
+      <classifier>osx-aarch_64</classifier>
     </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>33.2.1-jre</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.17.1</version>
-    </dependency>
+    -->
+      <dependency>
+          <groupId>io.netty</groupId>
+          <artifactId>netty5-transport-classes-io_uring</artifactId>
+      </dependency>
+    <!--
+      <dependency>
+          <groupId>io.netty</groupId>
+          <artifactId>netty5-transport-native-io_uring</artifactId>
+          <classifier>linux-x86_64</classifier>
+      </dependency>
+      <dependency>
+          <groupId>io.netty</groupId>
+          <artifactId>netty5-transport-native-io_uring</artifactId>
+          <classifier>linux-aarch_64</classifier>
+      </dependency>
+      -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -84,21 +112,36 @@
       <artifactId>jul-to-slf4j</artifactId>
       <version>${slf4j.version}</version>
     </dependency>
-    <dependency>
+      <dependency>
+          <groupId>org.assertj</groupId>
+          <artifactId>assertj-core</artifactId>
+          <version>3.26.0</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit.version}</version>
         <scope>test</scope>
     </dependency>
       <dependency>
           <groupId>org.junit.jupiter</groupId>
           <artifactId>junit-jupiter-params</artifactId>
+          <version>${junit.version}</version>
           <scope>test</scope>
       </dependency>
+    <dependency>
+        <groupId>org.awaitility</groupId>
+        <artifactId>awaitility</artifactId>
+        <version>4.2.1</version>
+        <scope>test</scope>
+    </dependency>
     <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-core</artifactId>
@@ -127,8 +170,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.13.0</version>
           <configuration>
-            <source>21</source>
-            <target>21</target>
+            <source>11</source>
+            <target>11</target>
           </configuration>
       </plugin>
       <plugin>
@@ -142,6 +185,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.3.0</version>
         <configuration>
+          <argLine>-Xcheck:jni</argLine>
           <forkCount>8</forkCount>
           <reuseForks>true</reuseForks>
         </configuration>
