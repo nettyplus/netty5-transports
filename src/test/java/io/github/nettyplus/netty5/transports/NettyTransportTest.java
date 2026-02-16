@@ -2,7 +2,6 @@ package io.github.nettyplus.netty5.transports;
 
 import io.netty5.channel.IoHandler;
 import io.netty5.channel.epoll.Epoll;
-import io.netty5.channel.uring.IOUring;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
@@ -60,8 +59,8 @@ public class NettyTransportTest {
     public void macTransports() {
         assertThat(NettyTransport.availableTransports())
             .containsExactlyInAnyOrder(
-                NettyTransport.NIO
-                /* todo NettyTransport.KQUEUE */);
+                NettyTransport.NIO,
+                NettyTransport.KQUEUE);
     }
 
     @ParameterizedTest
