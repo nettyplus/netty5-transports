@@ -16,15 +16,14 @@ A unified abstraction layer for [Netty 5](https://netty.io/) network transports.
 |-----------|----------|-------------|
 | **NIO** | All | Standard Java NIO transport (cross-platform, always available) |
 | **epoll** | Linux | High-performance Linux-specific transport using epoll |
-| **io_uring** | Linux | Modern Linux transport using io_uring (requires Linux 5.1+) |
 | **kqueue** | macOS/BSD | High-performance BSD-specific transport using kqueue |
 
-**Note:** Native transports (epoll, io_uring, kqueue) provide better performance than NIO on their respective platforms.
+**Note:** Native transports (epoll, kqueue) provide better performance than NIO on their respective platforms.
 
 ## Requirements
 
 - Java 11 or higher
-- Netty 5.0.0.Alpha6-SNAPSHOT or compatible version
+- Netty 5.0.0.Alpha5 or compatible version
 
 ## Installation
 

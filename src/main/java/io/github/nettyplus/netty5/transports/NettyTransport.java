@@ -3,14 +3,14 @@ package io.github.nettyplus.netty5.transports;
 import io.netty5.channel.IoHandlerFactory;
 import io.netty5.channel.epoll.Epoll;
 import io.netty5.channel.epoll.EpollDatagramChannel;
-import io.netty5.channel.epoll.EpollIoHandler;
+import io.netty5.channel.epoll.EpollHandler;
 import io.netty5.channel.epoll.EpollServerSocketChannel;
 import io.netty5.channel.epoll.EpollSocketChannel;
 import io.netty5.channel.kqueue.KQueueDatagramChannel;
-import io.netty5.channel.kqueue.KQueueIoHandler;
+import io.netty5.channel.kqueue.KQueueHandler;
 import io.netty5.channel.kqueue.KQueueServerSocketChannel;
 import io.netty5.channel.kqueue.KQueueSocketChannel;
-import io.netty5.channel.nio.NioIoHandler;
+import io.netty5.channel.nio.NioHandler;
 import io.netty5.channel.socket.DatagramChannel;
 import io.netty5.channel.socket.ServerSocketChannel;
 import io.netty5.channel.socket.SocketChannel;
@@ -18,21 +18,15 @@ import io.netty5.channel.socket.nio.NioDatagramChannel;
 import io.netty5.channel.socket.nio.NioServerSocketChannel;
 import io.netty5.channel.socket.nio.NioSocketChannel;
 import io.netty5.channel.kqueue.KQueue;
-import io.netty5.channel.uring.IOUring;
-import io.netty5.channel.uring.IOUringIoHandler;
-import io.netty5.channel.uring.IOUringServerSocketChannel;
-import io.netty5.channel.uring.IOUringSocketChannel;
-import io.netty5.channel.uring.IOUringDatagramChannel;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public enum NettyTransport {
-    NIO(true, NioIoHandler::newFactory, NioServerSocketChannel.class, NioSocketChannel.class, NioDatagramChannel.class),
-    EPOLL(Epoll.isAvailable(), EpollIoHandler::newFactory, EpollServerSocketChannel.class, EpollSocketChannel.class, EpollDatagramChannel.class),
-    IO_URING(IOUring.isAvailable(), IOUringIoHandler::newFactory, IOUringServerSocketChannel.class, IOUringSocketChannel.class, IOUringDatagramChannel.class),
-    KQUEUE(KQueue.isAvailable(), KQueueIoHandler::newFactory, KQueueServerSocketChannel.class, KQueueSocketChannel.class, KQueueDatagramChannel.class);
+    NIO(true, NioHandler::newFactory, NioServerSocketChannel.class, NioSocketChannel.class, NioDatagramChannel.class),
+    EPOLL(Epoll.isAvailable(), EpollHandler::newFactory, EpollServerSocketChannel.class, EpollSocketChannel.class, EpollDatagramChannel.class),
+    KQUEUE(KQueue.isAvailable(), KQueueHandler::newFactory, KQueueServerSocketChannel.class, KQueueSocketChannel.class, KQueueDatagramChannel.class);
 
     private static final Collection<NettyTransport> AVAILABLE = Arrays.stream(values())
         .filter(NettyTransport::isAvailable)

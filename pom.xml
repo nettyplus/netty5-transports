@@ -19,17 +19,9 @@
     <junit.version>6.0.3</junit.version>
     <logback.version>1.5.31</logback.version>
     <slf4j.version>2.0.17</slf4j.version>
-    <netty.version>5.0.0.Alpha6-SNAPSHOT</netty.version>
+    <netty.version>5.0.0.Alpha5</netty.version>
     <skip.tests>false</skip.tests>
   </properties>
-
-  <repositories>
-   <repository>
-     <id>netty-snapshots</id>
-     <name>netty-snapshots</name>
-     <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-   </repository>
-  </repositories>
 
   <dependencyManagement>
     <dependencies>
@@ -86,11 +78,11 @@
       <classifier>osx-aarch_64</classifier>
     </dependency>
     -->
+    <!--
       <dependency>
           <groupId>io.netty</groupId>
           <artifactId>netty5-transport-classes-io_uring</artifactId>
       </dependency>
-    <!--
       <dependency>
           <groupId>io.netty</groupId>
           <artifactId>netty5-transport-native-io_uring</artifactId>
